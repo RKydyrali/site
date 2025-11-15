@@ -1,0 +1,400 @@
+/* --- 0. ОСНОВНОЙ ШАБЛОН --- */
+:root {
+    --base-width: 1440px;
+    --base-height: 1024px;
+    --header-height: 80px;
+    /* ИЗМЕНЕНО: Высота для больших кнопок без текста */
+    --nav-height: 140px; 
+    --bg-color: #0d1222;
+    --gold-color: #ffcc00;
+    --active-neon: #00ffc0;
+    --accent-blue: #1770b6;
+    --dark-panel: #111a36;
+    --text-color: #e0e0e0;
+}
+
+html, body {
+    margin: 0; padding: 0;
+    width: 100vw; height: 100vh;
+    overflow: hidden; 
+    background-color: var(--bg-color); 
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.main-container {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color) url('mainpagebackground.png') no-repeat center center / cover;
+    position: relative;
+    overflow-y: auto; 
+    /* ИЗМЕНЕНО: Отступ снизу соответствует новой высоте навигации */
+    padding-bottom: var(--nav-height); 
+    box-sizing: border-box;
+}
+
+/* ---------------------------------- */
+/* 1. СТИЛИ ПРОФИЛЯ (Как на mainpage) */
+/* (Этот блок без изменений) */
+/* ---------------------------------- */
+
+.profile-panel {
+    position: absolute;
+    top: 20px; 
+    left: 20px; 
+    z-index: 50;  
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 2px solid #ffcc00;  
+    padding: 15px 20px; 
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    width: 350px; 
+    box-sizing: border-box;
+    pointer-events: auto; 
+}
+.profile-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+.profile-avatar {
+    width: 60px; 
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #00ccff; 
+    background: url(avatar.png) center center / cover no-repeat; 
+    flex-shrink: 0; 
+}
+.profile-details { flex-grow: 1; margin-right: 10px;}
+.nickname { 
+    font-weight: bold; 
+    font-size: 1.2em; 
+    color: #fff;
+    white-space: nowrap; 
+}
+.level-text { font-size: 0.8em; color: #aaa; }
+.level-progress-bar { 
+    height: 8px; 
+    background-color: #555; 
+    border-radius: 4px; 
+    margin: 5px 0; 
+    overflow: hidden; 
+}
+.progress-fill { 
+    height: 100%; 
+    background-color: #00ccff; 
+}
+.trophies-display { 
+    display: flex; 
+    align-items: center; 
+    font-size: 1.1em; 
+    font-weight: bold; 
+    color: #ffcc00; 
+    margin-left: auto; 
+    background-color: #333; 
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap; 
+}
+.currency-bar { 
+    display: flex; 
+    gap: 15px;
+    padding-top: 10px; 
+    font-size: 0.9em; 
+    color: #eee; 
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    justify-content: flex-start; 
+}
+.currency-item { 
+    display: flex; 
+    align-items: center; 
+    gap: 3px;
+    white-space: nowrap;
+}
+.currency-item img { 
+    width: 25px; 
+    height: 25px; 
+    object-fit: contain;
+    flex-shrink: 0;
+}
+.currency-item span { 
+    font-weight: bold; 
+    color: #fff; 
+}
+.currency-item:first-child span { color: #ff6600; }
+.currency-item:nth-child(2) span { color: #ffcc00; }
+.currency-item:nth-child(3) span { color: #00ccff; }
+.settings-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 50;
+    width: 120px; 
+    height: 120px; 
+    cursor: pointer;
+    background: url(settings.png) center center / contain no-repeat; 
+    border: none;
+    background-color: transparent;
+    pointer-events: auto;
+    transition: transform 0.2s;
+}
+.settings-button:hover {
+    transform: scale(1.1);
+}
+
+/* ---------------------------------- */
+/* 2. СТИЛИ ДЛЯ COMMUNITY */
+/* ---------------------------------- */
+.content-area {
+    padding: 40px 80px; 
+    padding-top: 160px; 
+    display: flex;
+    flex-direction: column;
+    gap: 40px; 
+    align-items: center; 
+}
+.clan-display {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.clan-display:hover {
+    transform: scale(1.05);
+}
+.clan-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid var(--gold-color);
+}
+.clan-name {
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px #000;
+}
+.friends-section {
+    width: 100%;
+    max-width: 1000px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ИЗМЕНЕНО: Центрируем */
+    gap: 20px;
+}
+.friends-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    /* УДАЛЕНО: padding-left: 20px; */
+    text-align: center; /* ИЗМЕНЕНО: Центрируем текст */
+}
+.friends-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    overflow-x: auto;
+    width: 100%;
+    max-width: 1000px; 
+    padding: 20px; 
+}
+.friend-item {
+    width: 100px; 
+    height: 100px; 
+    border-radius: 15px;
+    border: 4px solid var(--gold-color);
+    background-color: var(--dark-panel);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    flex-shrink: 0; 
+    padding: 5px; 
+    box-sizing: border-box;
+}
+.friend-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+.friend-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px; 
+}
+
+/* ---------------------------------- */
+/* 3. ИСПРАВЛЕННАЯ НИЖНЯЯ НАВИГАЦИЯ */
+/* ---------------------------------- */
+.bottom-nav {
+    position: fixed; 
+    bottom: 0;
+    width: 100%;
+    height: var(--nav-height); /* 140px */
+    z-index: 1000;
+    pointer-events: none; 
+}
+.nav-background-bar {
+    position: absolute;
+    width: 100%;
+    background-color: var(--accent-blue); 
+    z-index: 1;
+    bottom: 0;
+    /* ИЗМЕНЕНО: Высота фона навигации - теперь соответствует всей высоте --nav-height */
+    height: var(--nav-height); /* 140px */
+    pointer-events: auto;
+}
+.nav-buttons-container {
+    position: relative; z-index: 2;
+    width: 100%; max-width: 1200px; 
+    margin: 0 auto; display: flex;
+    justify-content: space-around;
+    align-items: center; /* ИЗМЕНЕНО: Центрируем кнопки по вертикали внутри контейнера */
+    box-sizing: border-box;
+    height: 100%;
+    pointer-events: auto;
+}
+.nav-button {
+    text-decoration: none; display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center; /* Центрируем иконку внутри кнопки */
+    /* УДАЛЕНО: Стили для текста (font-size, font-weight, color) */
+    height: 100%; 
+    box-sizing: border-box;
+    /* УДАЛЕНО: padding-bottom: 5px; */
+}
+
+.nav-icon-frame {
+    /* ИЗМЕНЕНО: Рамка 150px */
+    width: 150px; 
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+    
+    background-image: url('nav_frame_default.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* УДАЛЕНО: margin-bottom: 5px; */
+}
+
+.nav-button img {
+    /* ИЗМЕНЕНО: Иконка 95px */
+    width: 95px; 
+    height: 95px;
+    display: block; object-fit: contain;
+}
+
+.nav-button.active .nav-icon-frame,
+.nav-button.home-active .nav-icon-frame,
+.nav-button:hover .nav-icon-frame {
+    
+    background-image: url('nav_frame_active.png');
+    transform: scale(1.1);
+}
+/* УДАЛЕНО: Стили для активного текста */
+/* .nav-button.active span,
+.nav-button.home-active span {
+    color: var(--active-neon);
+    text-shadow: 0 0 5px var(--active-neon);
+} */
+
+
+/* ---------------------------------- */
+/* 4. МОДАЛЬНОЕ ОКНО ЧАТА */
+/* (Этот блок без изменений) */
+/* ---------------------------------- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+.modal-content.chat-box {
+    width: 600px;
+    height: 80vh;
+    max-height: 700px;
+    background-color: #1a2540;
+    border: 3px solid var(--gold-color);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 2px solid var(--gold-color);
+}
+.chat-avatar-img { width: 50px; height: 50px; border-radius: 50%; }
+.chat-header h3 { margin: 0; flex-grow: 1; font-size: 24px; }
+.close-modal-btn {
+    font-size: 36px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.message {
+    padding: 10px 15px;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+.message.user {
+    background-color: var(--accent-blue);
+    align-self: flex-end;
+}
+.message.ai { 
+    background-color: #334155;
+    align-self: flex-start;
+}
+.message.ai.typing {
+    color: #999;
+    font-style: italic;
+}
+.chat-input-area {
+    display: flex;
+    padding: 15px;
+    border-top: 2px solid #334155;
+}
+#chat-input {
+    flex-grow: 1;
+    background: #0d1222;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+}
+#send-chat-btn {
+    background: var(--gold-color);
+    color: #111;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px;
+    margin-left: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
