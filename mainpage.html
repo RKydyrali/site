@@ -1,57 +1,12 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход в игру</title>
-    <link rel="stylesheet" href="game_styles.css">
-</head>
-<body>
-
-    <div class="page-wrapper">
-        <div class="main-container">
-            
-            <div class="login-overlay">
-                
-                <div class="login-panel">
-                    
-                    <h2 class="login-title">ВОЙТИ В СИСТЕМУ</h2>
-                    
-                    <form class="login-form" id="loginForm">
-                        <input type="text" placeholder="Никнейм или Email" class="login-input">
-                        <input type="password" placeholder="Пароль" class="login-input">
-                        
-                        <button type="submit" class="login-btn">
-                            <span class="btn-text">ВОЙТИ</span> 
-                        </button>
-                        
-                        <a href="#" class="forgot-password">Забыли пароль?</a>
-                    </form>
-                    
-                </div>
-            </div>
-        </div>
+<div class="login-overlay">
+    
+    <div class="login-panel">
+        
+        <h2 class="login-title">ВОЙТИ</h2>
+        
+        <a href="mainpage.html" class="login-btn" style="text-decoration: none;">
+            <span class="btn-text">НАЧАТЬ ИГРУ</span> 
+        </a>
+        
     </div>
-
-    <script>
-        // --- JavaScript для перенаправления после входа ---
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('loginForm');
-
-            if (loginForm) {
-                // Вешаем слушатель на событие 'submit'
-                loginForm.addEventListener('submit', function(event) {
-                    
-                    // Предотвращаем стандартное действие формы (отправку данных и перезагрузку)
-                    event.preventDefault(); 
-                    
-                    // В реальном приложении здесь должна быть проверка данных!
-                    
-                    // Перенаправляем на mainpage.html
-                    window.location.href = 'mainpage.html'; 
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+</div>
